@@ -5,16 +5,14 @@ AddOption('--debugbuild', dest = 'debugbuild', action = 'store_true', default = 
 AddOption('--unittests', dest = 'unittests', action = 'store_true', default = 'False', help = 'enable unittest options and code coverage in build')
 
 #set default env paths 
-env['BUILD_ROOT'] = env.Dir('#do/%s' %(env.GetOption('target'))).abspath
-env['BIN_DIR'] = env.Dir(env['BUILD_ROOT'] + '/bin').abspath
-env['INC_DIR'] = env.Dir(env['BUILD_ROOT'] + '/include').abspath
-env['LIB_DIR'] = env.Dir(env['BUILD_ROOT'] + '/lib').abspath
-
-env['SYSTEMLIBS'] = [ ]
+env['BUILD_ROOT'] = env.Dir('#do/%s' %(env.GetOption('target')))
+env['BIN_DIR'] = env.Dir('%s/bin' %(env['BUILD_ROOT']))
+env['INC_DIR'] = env.Dir('%s/include' %(env['BUILD_ROOT']))
+env['LIB_DIR'] = env.Dir('%s/lib' %(env['BUILD_ROOT']))
 
 #set default flags
 env['CCFLAGS'] = [ '-std=gnu99', '-Wall', '-Wextra', '-Werror', '-Wmissing-prototypes', '-Wmissing-declarations' ]
-env['CPPPATH'] = [ '#/globalincludes', '#/framework/export', env['INC_DIR'] ]
+env['CPPPATH'] = [ env.Dir('energyville/globalincludes').srcnode(), env.Dir('framework/globalincludes').srcnode() ,env['INC_DIR'] ]
 env['CPPDEFINES'] = [ ]
 
 #check options
@@ -43,4 +41,4 @@ from custom_builders import *
 env.AddMethod(App, 'App')
 env.AddMethod(Lib, 'Lib')
 
-env.SConscript(dirs=['.'], name = 'SConscript', exports = 'env', variant_dir = env.Dir(env['BUILD_ROOT']).abspath, duplicate = 0)
+env.SConscript(dirs=['.'], name = 'SConscript', exports = 'env', variant_dir = env['BUILD_ROOT'], duplicate = 0)
