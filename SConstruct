@@ -4,11 +4,13 @@ AddOption('--target', dest = 'target', nargs = 1, choices = ['host', 'axotec'], 
 AddOption('--debugbuild', dest = 'debugbuild', action = 'store_true', default = 'False', help = 'enable debugging symbols in build')
 AddOption('--unittests', dest = 'unittests', action = 'store_true', default = 'False', help = 'enable unittest options and code coverage in build')
 
-#set default env paths 
+#set default env paths
 env['BUILD_ROOT'] = env.Dir('#do/%s' %(env.GetOption('target')))
 env['BIN_DIR'] = env.Dir('%s/bin' %(env['BUILD_ROOT']))
+env['ETC_DIR'] = env.Dir('%s/etc' %(env['BUILD_ROOT']))
 env['INC_DIR'] = env.Dir('%s/include' %(env['BUILD_ROOT']))
 env['LIB_DIR'] = env.Dir('%s/lib' %(env['BUILD_ROOT']))
+env['THIRD_PARTY_LIB_DIR'] = env.Dir('%s/third-party-lib' %(env['BUILD_ROOT']))
 
 #set default flags
 env['CCFLAGS'] = [ '-std=gnu99', '-Wall', '-Wextra', '-Werror', '-Wmissing-prototypes', '-Wmissing-declarations' ]
