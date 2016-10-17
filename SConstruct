@@ -10,11 +10,12 @@ env['BIN_DIR'] = env.Dir('%s/bin' %(env['BUILD_ROOT']))
 env['ETC_DIR'] = env.Dir('%s/etc' %(env['BUILD_ROOT']))
 env['INC_DIR'] = env.Dir('%s/include' %(env['BUILD_ROOT']))
 env['LIB_DIR'] = env.Dir('%s/lib' %(env['BUILD_ROOT']))
-env['THIRD_PARTY_LIB_DIR'] = env.Dir('%s/third-party-lib' %(env['BUILD_ROOT']))
+env['THIRD_PARTY_INC_DIR'] = env.Dir('%s/third-party/include' %(env['BUILD_ROOT']))
+env['THIRD_PARTY_LIB_DIR'] = env.Dir('%s/third-party/lib' %(env['BUILD_ROOT']))
 
 #set default flags
 env['CCFLAGS'] = [ '-std=gnu99', '-Wall', '-Wextra', '-Werror', '-Wmissing-prototypes', '-Wmissing-declarations' ]
-env['CPPPATH'] = [ env.Dir('energyville/globalincludes').srcnode(), env.Dir('framework/globalincludes').srcnode() ,env['INC_DIR'] ]
+env['CPPPATH'] = [ env.Dir('energyville/globalincludes').srcnode(), env.Dir('framework/globalincludes').srcnode(), env['INC_DIR'], env['THIRD_PARTY_INC_DIR'] ]
 env['CPPDEFINES'] = [ ]
 
 #check options
