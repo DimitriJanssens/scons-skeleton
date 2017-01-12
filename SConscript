@@ -1,7 +1,7 @@
 Import('env')
 
 SUBDIRS = [
-	'energyville',
+	'example',
 	'framework',
 ]
 

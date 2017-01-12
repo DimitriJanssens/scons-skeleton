@@ -1,0 +1,9 @@
+# import env as created in Sconstruct, passed down by previous SConscript
+Import('env')
+
+SUBDIRS = [
+  'src',
+]
+
+# tell SCons to look for more SConscripts in the given SUBDIRS
+env.SConscript(dirs=SUBDIRS, name='SConscript', exports = 'env')

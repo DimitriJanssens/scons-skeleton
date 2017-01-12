@@ -1,0 +1,23 @@
+Import('env')
+
+src_testlib = [
+  'tcase_example.c',
+]
+
+# build library "libexample-tests"
+env.Lib('example-tests', src_testlib)
+
+libs = [
+  'example-tests',
+  'exampleintf', 'example',
+  # other libs: interfaces and/or implementations
+]
+
+# build application "example-tests" from src "test_example.c" and link with LIBS
+tests = env.App('example-tests', 'test_example.c', LIBS=[ libs ])
+
+# specific alias
+env.Alias('exampletests', tests)
+
+# common alias for all unit tests
+env.Alias('unittests', tests)

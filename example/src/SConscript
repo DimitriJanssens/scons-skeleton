@@ -1,0 +1,21 @@
+# import env as created in Sconstruct, passed down by previous SConscript
+Import('env')
+
+# module intf sources
+src_intf = [
+  'exampleIntf.c',
+]
+
+# module implementation
+src_lib = [
+  'example.c',
+]
+
+# build library "libexampleintf"
+intf = env.Lib('exampleintf', src_intf)
+
+# build library "libexample"
+lib = env.Lib('example', src_lib)
+
+# set target alias for SCons: cmdline "scons example" will execute command intf and lib
+env.Alias('example', [ intf, lib ])
