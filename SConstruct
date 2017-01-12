@@ -1,5 +1,9 @@
 env = Environment()
 
+#set default build to printing aliases
+env.Default(None)
+
+AddOption('--aliases', dest = 'aliases', action = 'store_true', default = 'False', help = 'display all available aliases')
 AddOption('--target', dest = 'target', nargs = 1, choices = ['host', 'axotec'], action = 'store', default = 'host', help = 'select build target')
 AddOption('--debugbuild', dest = 'debugbuild', action = 'store_true', default = 'False', help = 'enable debugging symbols in build')
 AddOption('--unittests', dest = 'unittests', action = 'store_true', default = 'False', help = 'enable unittest options and code coverage in build')
@@ -45,3 +49,13 @@ env.AddMethod(App, 'App')
 env.AddMethod(Lib, 'Lib')
 
 env.SConscript(dirs=['.'], name = 'SConscript', exports = 'env', variant_dir = env['BUILD_ROOT'], duplicate = 0)
+
+#Keep this after the sconscript function! All scripts must be read in order to fetch all aliases
+if env.GetOption('aliases') == True:
+  #print available aliases
+  from SCons.Node.Alias import default_ans
+  aliases = default_ans.keys()
+  aliases.sort()
+  print 'Recognised targets:'
+  for alias in aliases:
+    print '    %s' % alias
