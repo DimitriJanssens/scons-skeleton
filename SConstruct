@@ -16,6 +16,7 @@ env['INC_DIR'] = env.Dir('%s/include' %(env['BUILD_ROOT']))
 env['LIB_DIR'] = env.Dir('%s/lib' %(env['BUILD_ROOT']))
 env['THIRD_PARTY_INC_DIR'] = env.Dir('%s/third-party/include' %(env['BUILD_ROOT']))
 env['THIRD_PARTY_LIB_DIR'] = env.Dir('%s/third-party/lib' %(env['BUILD_ROOT']))
+env['TOOLCHAINS_DIR'] = env.Dir('#do/toolchains')
 
 #set default flags
 env['CCFLAGS'] = [ '-std=gnu99', '-Wall', '-Wextra', '-Werror', '-Wmissing-prototypes', '-Wmissing-declarations' ]
@@ -23,12 +24,6 @@ env['CPPPATH'] = [ env.Dir('energyville/globalincludes').srcnode(), env.Dir('fra
 env['CPPDEFINES'] = [ ]
 
 #check options
-if env.GetOption('target') == 'axotec':
-  env['CC'] = '/usr/local/arm/4.9.2/usr/bin/arm-axotec-linux-gnueabi-gcc'
-  env['CXX'] = '/usr/local/arm/4.9.2/usr/bin/arm-axotec-linux-gnueabi-g++'
-  env['LD'] = '/usr/local/arm/4.9.2/usr/bin/arm-axotec-linux-gnueabi-ld'
-  env['AR'] = '/usr/local/arm/4.9.2/usr/bin/arm-axotec-linux-gnueabi-ar'
-  env['STRIP'] = '/usr/local/arm/4.9.2/usr/bin/arm-axotec-linux-gnueabi-strip'
 
 if env.GetOption('debugbuild') == True:
   env['CCFLAGS'].append(['-g'])
