@@ -2,6 +2,7 @@ Import('env')
 
 SUBDIRS = [
 	'axotec',
+  'host',
 ]
 
 env.SConscript(dirs=SUBDIRS, name='SConscript', exports = 'env')

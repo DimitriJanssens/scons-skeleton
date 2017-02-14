@@ -26,17 +26,17 @@ env['CPPDEFINES'] = [ ]
 #check options
 
 if env.GetOption('debugbuild') == True:
-  env['CCFLAGS'].append(['-g'])
+  env['CCFLAGS'].append('-g')
 
 if env.GetOption('unittests') == True:
-  env['CCFLAGS'].append(['--coverage'])
-  env['CPPDEFINES'].append(['UNITTESTS'])
+  env['CCFLAGS'].append('--coverage')
+  env['CPPDEFINES'].append('UNITTESTS')
 
 # Optimise options
 if env.GetOption('debugbuild') == True or env.GetOption('unittests') == True:
-  env['CCFLAGS'].append(['-O0'])
+  env['CCFLAGS'].append('-O0')
 else:
-  env['CCFLAGS'].append(['-O3'])
+  env['CCFLAGS'].append('-O3')
 
 #Add Custom Builders
 from custom_builders import *

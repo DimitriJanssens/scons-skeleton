@@ -1,0 +1,27 @@
+Import('env')
+
+toolchain_bindir = env.Dir('/usr/bin')
+toolchain_prefix = ''
+
+import commands
+status, output = commands.getstatusoutput('/usr/bin/gcc -dumpmachine')
+if status != 0:
+  print "Unable to fetch host tools triplet ..."
+  print 'Error: ' + output
+else:
+  toolchain_prefix = output + '-'
+
+cc = env.File(toolchain_prefix + 'gcc', toolchain_bindir)
+cxx = env.File(toolchain_prefix + 'g++', toolchain_bindir)
+ld = env.File(toolchain_prefix + 'ld', toolchain_bindir)
+ar = env.File(toolchain_prefix + 'ar', toolchain_bindir)
+strip = env.File(toolchain_prefix + 'strip', toolchain_bindir)
+
+if env.GetOption('target') == 'host':
+  env.PrependENVPath('PATH', toolchain_bindir.abspath)
+
+  env['CC'] = cc.abspath
+  env['CXX'] = cxx.abspath
+  env['LD'] = ld.abspath
+  env['AR'] = ar.abspath
+  env['STRIP'] = strip.abspath

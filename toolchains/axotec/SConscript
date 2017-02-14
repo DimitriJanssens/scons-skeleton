@@ -6,7 +6,6 @@ toolchain_dir = env.Dir('%s/toolchain-axo-gcc-4.9.2-arm' %(env['TOOLCHAINS_DIR']
 toolchain_bindir = env.Dir('bin', toolchain_dir)
 toolchain_prefix = 'arm-axotec-linux-gnueabi-'
 
-env.PrependENVPath('PATH', toolchain_bindir.path)
 
 cc = env.File(toolchain_prefix + 'gcc', toolchain_bindir)
 cxx = env.File(toolchain_prefix + 'g++', toolchain_bindir)
@@ -19,10 +18,12 @@ cmd = env.Command([ cc, cxx, ld, ar, strip ], tarball, '$TAR -xf %s -C %s' %(tar
 env.Alias('toolchain-axo-gcc-4.9.2-arm', cmd)
 
 if env.GetOption('target') == 'axotec':
-  env['CCFLAGS'].append(['-mcpu=arm926ej-s', '-march=armv5te', '-mtune=arm926ej-s'])
+  env.PrependENVPath('PATH', toolchain_bindir.abspath)
 
-  env['CC'] = cc.name
-  env['CXX'] = cxx.name
-  env['LD'] = ld.name
-  env['AR'] = ar.name
-  env['STRIP'] = strip.name
+  env['CCFLAGS'].extend(['-mcpu=arm926ej-s', '-march=armv5te', '-mtune=arm926ej-s'])
+
+  env['CC'] = cc.abspath
+  env['CXX'] = cxx.abspath
+  env['LD'] = ld.abspath
+  env['AR'] = ar.abspath
+  env['STRIP'] = strip.abspath
