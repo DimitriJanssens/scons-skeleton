@@ -6,7 +6,10 @@ BUILD_DIR='do/host'
 rm -rf $DO_DIR
 
 scons documentation --target=host
+if [ $? -ne 0 ]; then exit; fi
+
 scons unittests --target=host --unittests
+if [ $? -ne 0 ]; then exit; fi
 
 mkdir -p $BUILD_DIR/testresults
 mkdir -p $BUILD_DIR/coverage

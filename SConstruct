@@ -19,7 +19,7 @@ env['THIRD_PARTY_LIB_DIR'] = env.Dir('%s/third-party/lib' %(env['BUILD_ROOT']))
 env['TOOLCHAINS_DIR'] = env.Dir('#do/toolchains')
 
 #set default flags
-env['CCFLAGS'] = [ '-std=gnu99', '-Wall', '-Wextra', '-Werror', '-Wmissing-prototypes', '-Wmissing-declarations' ]
+env['CCFLAGS'] = [ '-std=gnu99', '-Wall', '-Wextra', '-Werror', '-Wmissing-prototypes', '-Wmissing-declarations', '-Wcast-align', '-Wcast-qual', '-Wno-int-to-pointer-cast', '-Wno-pointer-to-int-cast', '-Wbad-function-cast' ]
 env['CPPPATH'] = [ env.Dir('energyville/globalincludes').srcnode(), env.Dir('framework/globalincludes').srcnode(), env['INC_DIR'], env['THIRD_PARTY_INC_DIR'] ]
 env['CPPDEFINES'] = [ ]
 
