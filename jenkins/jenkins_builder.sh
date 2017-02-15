@@ -1,27 +1,22 @@
 #!/bin/sh
 
-rm -rf do
+DO_DIR='do'
+BUILD_DIR='do/host'
+
+rm -rf $DO_DIR
 
 scons documentation --target=host
 scons unittests --target=host --unittests
 
-cd do/host
+mkdir -p $BUILD_DIR/testresults
+mkdir -p $BUILD_DIR/coverage
 
-rm -rf testresults
-mkdir -p testresults
-
-rm -rf coverage
-mkdir -p coverage
-
-for f in bin/*tests
+for f in $BUILD_DIR/bin/*-tests
 do
-RESULTS_DIR=testresults LD_LIBRARY_PATH=third-party/lib valgrind --leak-check=full --sim-hints=no-nptl-pthread-stackcache --track-origins=yes -q  $f 2>&1
+RESULTS_DIR=$BUILD_DIR/testresults LD_LIBRARY_PATH=$BUILD_DIR/third-party/lib valgrind --leak-check=full --sim-hints=no-nptl-pthread-stackcache --track-origins=yes -q  $f 2>&1
 done
 
-gcovr -r `pwd` --object-directory=`pwd` --output coverage/coverage.xml \
-    --xml \
+gcovr -r `pwd` --object-directory=`pwd` \
+    --xml --output $BUILD_DIR/coverage/coverage.xml \
     -e '.*/third-party/.*' \
-    -e '.*/include/c\+\+/.*' \
-    -e '.*/test/c\+\+/.*' \
-    -e '.*/test/src/.*' \
-    `pwd`
+    -e '.*/test/src/.*'
