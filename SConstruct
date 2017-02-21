@@ -10,12 +10,14 @@ AddOption('--unittests', dest = 'unittests', action = 'store_true', default = 'F
 
 #set default env paths
 env['BUILD_ROOT'] = env.Dir('#do/%s' %(env.GetOption('target')))
-env['BIN_DIR'] = env.Dir('%s/bin' %(env['BUILD_ROOT']))
-env['ETC_DIR'] = env.Dir('%s/etc' %(env['BUILD_ROOT']))
-env['INC_DIR'] = env.Dir('%s/include' %(env['BUILD_ROOT']))
-env['LIB_DIR'] = env.Dir('%s/lib' %(env['BUILD_ROOT']))
-env['THIRD_PARTY_INC_DIR'] = env.Dir('%s/third-party/include' %(env['BUILD_ROOT']))
-env['THIRD_PARTY_LIB_DIR'] = env.Dir('%s/third-party/lib' %(env['BUILD_ROOT']))
+env['BIN_DIR'] = env['BUILD_ROOT'].Dir('bin')
+env['ETC_DIR'] = env['BUILD_ROOT'].Dir('etc')
+env['INC_DIR'] = env['BUILD_ROOT'].Dir('include')
+env['LIB_DIR'] = env['BUILD_ROOT'].Dir('lib')
+env['THIRD_PARTY_DIR'] = env['BUILD_ROOT'].Dir('third-party')
+env['THIRD_PARTY_BIN_DIR'] = env['THIRD_PARTY_DIR'].Dir('bin')
+env['THIRD_PARTY_INC_DIR'] = env['THIRD_PARTY_DIR'].Dir('include')
+env['THIRD_PARTY_LIB_DIR'] = env['THIRD_PARTY_DIR'].Dir('lib')
 env['TOOLCHAINS_DIR'] = env.Dir('#do/toolchains')
 
 #set default flags
