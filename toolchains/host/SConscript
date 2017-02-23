@@ -11,17 +11,19 @@ if status != 0:
 else:
   toolchain_prefix = output + '-'
 
-cc = env.File(toolchain_prefix + 'gcc', toolchain_bindir)
-cxx = env.File(toolchain_prefix + 'g++', toolchain_bindir)
-ld = env.File(toolchain_prefix + 'ld', toolchain_bindir)
-ar = env.File(toolchain_prefix + 'ar', toolchain_bindir)
-strip = env.File(toolchain_prefix + 'strip', toolchain_bindir)
+bins = [
+  toolchain_bindir.File(toolchain_prefix + 'ar'),
+  toolchain_bindir.File(toolchain_prefix + 'as'),
+  toolchain_bindir.File(toolchain_prefix + 'gcc'),
+  toolchain_bindir.File(toolchain_prefix + 'g'),
+  toolchain_bindir.File(toolchain_prefix + 'ranlib'),
+]
 
 if env.GetOption('target') == 'host':
   env.PrependENVPath('PATH', toolchain_bindir.abspath)
 
-  env['CC'] = cc.abspath
-  env['CXX'] = cxx.abspath
-  env['LD'] = ld.abspath
-  env['AR'] = ar.abspath
-  env['STRIP'] = strip.abspath
+  env['AR'] = toolchain_bindir.File(toolchain_prefix + env['AR'])
+  env['AS'] = toolchain_bindir.File(toolchain_prefix + env['AS'])
+  env['CC'] = toolchain_bindir.File(toolchain_prefix + env['CC'])
+  env['CXX'] = toolchain_bindir.File(toolchain_prefix + env['CXX'])
+  env['RANLIB'] = toolchain_bindir.File(toolchain_prefix + env['RANLIB'])
