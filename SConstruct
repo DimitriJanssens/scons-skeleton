@@ -21,7 +21,26 @@ env['THIRD_PARTY_LIB_DIR'] = env['THIRD_PARTY_DIR'].Dir('lib')
 env['TOOLCHAINS_DIR'] = env.Dir('#do/toolchains')
 
 #set default flags
-env['CCFLAGS'] = [ '-std=gnu99', '-Wall', '-Wextra', '-Werror', '-Wmissing-prototypes', '-Wmissing-declarations', '-Wcast-align', '-Wcast-qual', '-Wno-int-to-pointer-cast', '-Wno-pointer-to-int-cast', '-Wbad-function-cast' ]
+env['CCFLAGS'] = [
+  '-std=gnu99',
+  '-Wall',
+  '-Wbad-function-cast',
+  '-Wcast-align',
+  '-Wcast-qual',
+#  '-Wconversion', makes you thing twice about integer types and signedness: this would be very nice ... but causes a lot of refactoring due to implicit int casting with arithmetics
+  '-Werror',
+  '-Wextra',
+  '-Wformat=2',
+  '-Wmissing-declarations',
+  '-Wmissing-prototypes',
+  '-Wnested-externs',
+  '-Wno-int-to-pointer-cast',
+  '-Wno-pointer-to-int-cast',
+  '-Wpointer-arith',
+  '-Wshadow',
+  '-Wstrict-prototypes',
+  '-Wwrite-strings',
+]
 env['CPPPATH'] = [ env.Dir('energyville/globalincludes').srcnode(), env.Dir('framework/globalincludes').srcnode(), env['INC_DIR'], env['THIRD_PARTY_INC_DIR'] ]
 env['CPPDEFINES'] = [ ]
 
