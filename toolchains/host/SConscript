@@ -1,6 +1,7 @@
 Import('env')
 
-toolchain_bindir = env.Dir('/usr/bin')
+toolchain_dir = env.Dir('/usr')
+toolchain_bindir = toolchain_dir.Dir('bin')
 toolchain_prefix = ''
 
 import commands
@@ -21,6 +22,7 @@ bins = [
 
 if env.GetOption('target') == 'host':
   env.PrependENVPath('PATH', toolchain_bindir.abspath)
+  env['CPPPATH'].append(toolchain_dir.Dir('include'))
 
   env['AR'] = toolchain_bindir.File(toolchain_prefix + env['AR'])
   env['AS'] = toolchain_bindir.File(toolchain_prefix + env['AS'])

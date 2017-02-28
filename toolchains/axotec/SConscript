@@ -20,8 +20,8 @@ env.Alias('toolchain-axo-gcc-4.9.2-arm', cmd)
 
 if env.GetOption('target') == 'axotec':
   env.PrependENVPath('PATH', toolchain_bindir.abspath)
-
   env['CCFLAGS'].extend(['-mcpu=arm926ej-s', '-march=armv5te', '-mtune=arm926ej-s'])
+  env['CPPPATH'].append(toolchain_dir.Dir('arm-axotec-linux-gnueabi/sysroot/usr/include'))
 
   env['AR'] = toolchain_bindir.File(toolchain_prefix + env['AR'])
   env['AS'] = toolchain_bindir.File(toolchain_prefix + env['AS'])
