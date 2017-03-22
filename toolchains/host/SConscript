@@ -16,7 +16,9 @@ bins = [
   toolchain_bindir.File(toolchain_prefix + 'ar'),
   toolchain_bindir.File(toolchain_prefix + 'as'),
   toolchain_bindir.File(toolchain_prefix + 'gcc'),
-  toolchain_bindir.File(toolchain_prefix + 'g'),
+  toolchain_bindir.File(toolchain_prefix + 'g++'),
+  toolchain_bindir.File(toolchain_prefix + 'gfortran'),
+  toolchain_bindir.File(toolchain_prefix + 'ld'),
   toolchain_bindir.File(toolchain_prefix + 'ranlib'),
 ]
 
@@ -24,8 +26,10 @@ if env.GetOption('target') == 'host':
   env.PrependENVPath('PATH', toolchain_bindir.abspath)
   env['CPPPATH'].append(toolchain_dir.Dir('include'))
 
-  env['AR'] = toolchain_bindir.File(toolchain_prefix + env['AR'])
-  env['AS'] = toolchain_bindir.File(toolchain_prefix + env['AS'])
-  env['CC'] = toolchain_bindir.File(toolchain_prefix + env['CC'])
-  env['CXX'] = toolchain_bindir.File(toolchain_prefix + env['CXX'])
-  env['RANLIB'] = toolchain_bindir.File(toolchain_prefix + env['RANLIB'])
+  env['AR'] = toolchain_bindir.File(toolchain_prefix + 'ar')
+  env['AS'] = toolchain_bindir.File(toolchain_prefix + 'as')
+  env['CC'] = toolchain_bindir.File(toolchain_prefix + 'gcc')
+  env['CXX'] = toolchain_bindir.File(toolchain_prefix + 'g++')
+  env['FC'] = toolchain_bindir.File(toolchain_prefix + 'gfortran')
+  env['LD'] = toolchain_bindir.File(toolchain_prefix + 'ld')
+  env['RANLIB'] = toolchain_bindir.File(toolchain_prefix + 'ranlib')
